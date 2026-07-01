@@ -1,0 +1,61 @@
+<div class="math-captcha">
+
+  <h2 class="title">Solve the equation</h2>
+  <p class="subtitle">Enter the correct answer below</p>
+
+  <!-- ── EQUATION DISPLAY ───────────────────────────────── -->
+  <div class="equation-card">
+
+    <div class="equation">
+      <span class="equation__num">{{ equation().a }}</span>
+      <span class="equation__op">{{ equation().operator }}</span>
+      <span class="equation__num">{{ equation().b }}</span>
+      <span class="equation__eq">=</span>
+      <span class="equation__unknown">?</span>
+    </div>
+
+    <button class="refresh-btn" (click)="refresh()" title="New equation">↻</button>
+
+  </div>
+
+  <!-- ── FEEDBACK ───────────────────────────────────────── -->
+  @if (showError()) {
+    <div class="feedback feedback--error">
+      ✕ Wrong answer — try a new equation
+    </div>
+  }
+
+  @if (showSuccess()) {
+    <div class="feedback feedback--success">
+      ✓ Correct — moving to next stage
+    </div>
+  }
+
+  <!-- ── ANSWER INPUT ───────────────────────────────────── -->
+  <input
+    class="answer-input"
+    [class.answer-input--error]="showError()"
+    [class.answer-input--success]="showSuccess()"
+    type="number"
+    placeholder="Your answer"
+    [ngModel]="userInput()"
+    (input)="onInputChange($any($event.target).value)"
+    (keydown.enter)="verify()"
+    autocomplete="off"
+  />
+
+  @if (attempts() >= 2) {
+    <p class="hint">Click ↻ for a different equation</p>
+  }
+
+  <!-- ── VERIFY BUTTON ──────────────────────────────────── -->
+  <button
+    class="verify-btn"
+    [class.verify-btn--ready]="canSubmit()"
+    [disabled]="!canSubmit() || showSuccess()"
+    (click)="verify()"
+  >
+    @if (showSuccess()) { CORRECT ✓ } @else { SUBMIT ANSWER → }
+  </button>
+
+</div>

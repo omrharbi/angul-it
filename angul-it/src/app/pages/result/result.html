@@ -1,0 +1,54 @@
+<div class="result-shell">
+  <div class="bg-lines"></div>
+
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <a routerLink="/" class="nav__logo">
+      <span class="nav__logo-bracket">[</span>ANGUL<span class="nav__logo-accent">·</span>IT<span class="nav__logo-bracket">]</span>
+    </a>
+    <span class="nav__tag">// SESSION COMPLETE</span>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- SCORE DISPLAY -->
+    <div class="score-block">
+      <div class="score-block__label">YOUR SCORE</div>
+
+      <div class="score-block__number" [class.score-block__number--pass]="passed" [class.score-block__number--fail]="!passed">
+        {{ state.score() }}<span class="score-block__total">/{{ state.total }}</span>
+      </div>
+
+      <div class="score-block__verdict" [class.score-block__verdict--pass]="passed" [class.score-block__verdict--fail]="!passed">
+          @if (passed) { ✓ VERIFIED — YOU ARE HUMAN } @else { ✕ VERIFICATION FAILED }
+      </div>
+
+      @if (passed) {
+        <div class="score-block__message">CONGRATULATIONS — You proved you are not a bot.</div>
+      }
+    </div>
+
+    <!-- STAGE BREAKDOWN -->
+    <div class="breakdown">
+      <div class="breakdown__title">CHALLENGE BREAKDOWN</div>
+
+      @for (stage of state.stages(); track $index; let i = $index) {
+        <div class="breakdown__row" [class.breakdown__row--pass]="stage.passed" [class.breakdown__row--fail]="!stage.passed">
+          <span class="breakdown__index">0{{ i + 1 }}</span>
+          <span class="breakdown__type">{{ typeLabel[stage.type] }}</span>
+          <span class="breakdown__result">
+            @if (stage.passed) { ✓ PASSED } @else { ✕ FAILED }
+          </span>
+        </div>
+      }
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions">
+      <button class="btn-restart" (click)="restart()">↺ RESTART CHALLENGE</button>
+      <button class="btn-home" (click)="goHome()">BACK TO HOME</button>
+    </div>
+
+  </main>
+</div>

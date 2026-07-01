@@ -1,0 +1,116 @@
+<div class="text-captcha">
+
+  <!-- ── TITLE ─────────────────────────────────────────── -->
+  <h2 class="title">Type the characters you see</h2>
+  <p class="subtitle">Case insensitive · {{ LENGTH }} characters</p>
+
+  <!-- ── SVG CAPTCHA IMAGE ──────────────────────────────── -->
+  <div class="svg-wrap" [class.svg-wrap--error]="showError()">
+
+    <svg
+      [attr.viewBox]="'0 0 ' + SVG_W + ' ' + SVG_H"
+      [attr.width]="SVG_W"
+      [attr.height]="SVG_H"
+      xmlns="http://www.w3.org/2000/svg"
+      class="svg-canvas"
+    >
+      <!-- background -->
+      <rect width="100%" height="100%" fill="#0C1520" rx="0"/>
+
+      <!-- noise dots (drawn first, behind characters) -->
+      @for (dot of noiseDots(); track $index) {
+        <circle
+          [attr.cx]="dot.cx"
+          [attr.cy]="dot.cy"
+          [attr.r]="dot.r"
+          [attr.fill]="dot.color"
+        />
+      }
+
+      <!-- noise lines (drawn behind characters) -->
+      @for (line of noiseLines(); track $index) {
+        <line
+          [attr.x1]="line.x1"
+          [attr.y1]="line.y1"
+          [attr.x2]="line.x2"
+          [attr.y2]="line.y2"
+          [attr.stroke]="line.color"
+          stroke-width="1.5"
+          stroke-opacity="0.8"
+        />
+      }
+
+      <!-- characters (drawn on top of noise) -->
+      @for (ch of svgChars(); track $index) {
+        <text
+          [attr.x]="ch.x"
+          [attr.y]="ch.y"
+          [attr.font-size]="ch.fontSize"
+          [attr.fill]="ch.color"
+          [attr.transform]="'rotate(' + ch.rotation + ' ' + ch.x + ' ' + ch.y + ')'"
+          font-family="'Space Grotesk', sans-serif"
+          font-weight="700"
+          text-anchor="middle"
+          dominant-baseline="middle"
+        >{{ ch.char }}</text>
+      }
+    </svg>
+
+    <!-- refresh button — top right corner of the SVG -->
+    <button class="refresh-btn" (click)="generate()" title="Refresh CAPTCHA">
+      ↻
+    </button>
+
+  </div>
+
+  <!-- ── ERROR / SUCCESS FEEDBACK ──────────────────────── -->
+  @if (showError()) {
+    <div class="feedback feedback--error">
+      ✕ Incorrect — a new code has been generated
+    </div>
+  }
+
+  @if (showSuccess()) {
+    <div class="feedback feedback--success">
+      ✓ Correct — moving to next stage
+    </div>
+  }
+
+  <!-- ── INPUT FIELD ────────────────────────────────────── -->
+  <div class="input-wrap">
+    <input
+      class="captcha-input"
+      [class.captcha-input--error]="showError()"
+      [class.captcha-input--success]="showSuccess()"
+      type="text"
+      [maxlength]="LENGTH"
+      placeholder="Enter code"
+      [ngModel]="userInput()"
+      (ngModelChange)="onInputChange($event)"
+      (keydown.enter)="verify()"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <span class="input-count">{{ userInput().length }}/{{ LENGTH }}</span>
+  </div>
+
+  <!-- attempts hint -->
+  @if (attempts() >= 2) {
+    <p class="hint">Tip: click ↻ to get an easier code</p>
+  }
+
+  <!-- ── VERIFY BUTTON ──────────────────────────────────── -->
+  <button
+    class="verify-btn"
+    [class.verify-btn--ready]="canSubmit()"
+    [disabled]="!canSubmit() || showSuccess()"
+    (click)="verify()"
+  >
+    @if (showSuccess()) {
+      VERIFIED ✓
+    } @else {
+      VERIFY →
+    }
+  </button>
+
+</div>

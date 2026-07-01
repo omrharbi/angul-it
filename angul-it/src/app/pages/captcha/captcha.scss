@@ -1,0 +1,226 @@
+// ── FONTS ─────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+// ── TOKENS (second style) ─────────────────────────────────
+:host {
+  --bg-base:      #0C0C0F;
+  --bg-surface:   #131318;
+  --bg-card:      #18181F;
+
+  --cyan-dim:     rgba(0, 229, 255, 0.08);
+  --cyan-border:  rgba(0, 229, 255, 0.25);
+  --cyan:         #00E5FF;
+  --cyan-bright:  #80F0FF;
+  --cyan-glow:    rgba(0, 229, 255, 0.18);
+
+  --white:        #F2F2F2;
+  --muted:        #7A7A8A;
+  --dim:          #2E2E3A;
+  --border-faint: rgba(255, 255, 255, 0.06);
+  --border-mid:   rgba(255, 255, 255, 0.12);
+
+  --danger:       #FF4444;
+  --success:      #44FF88;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+}
+
+// ── RESET ─────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+a { text-decoration: none; color: inherit; }
+
+// ── SHELL ─────────────────────────────────────────────────
+.captcha-shell {
+  min-height:   100vh;
+  background:   var(--bg-base);
+  color:        var(--white);
+  font-family:  var(--font-display);
+  display:      flex;
+  flex-direction: column;
+  position:     relative;
+  overflow:     hidden;
+}
+
+// ── BACKGROUND DIAGONAL LINES ─────────────────────────────
+.bg-lines {
+  position: fixed;
+  inset:    0;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 60px,
+    rgba(255,255,255,0.013) 60px,
+    rgba(255,255,255,0.013) 61px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+// ── NAVBAR ────────────────────────────────────────────────
+.nav {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding:         1.4rem 3rem;
+  border-bottom:   1px solid var(--border-faint);
+  position:        relative;
+  z-index:         10;
+
+  &__logo {
+    font-family:  var(--font-mono);
+    font-size:    1rem;
+    font-weight:  600;
+    letter-spacing: 0.1em;
+  }
+
+  &__logo-bracket { color: var(--cyan); }
+  &__logo-accent  { color: var(--cyan); }
+
+  &__stage {
+    font-family:    var(--font-mono);
+    font-size:      0.65rem;
+    letter-spacing: 0.2em;
+    color:          var(--muted);
+  }
+
+  &__exit {
+    font-family:    var(--font-mono);
+    font-size:      0.6rem;
+    letter-spacing: 0.2em;
+    color:          var(--dim);
+    transition:     color 0.2s;
+
+    &:hover { color: var(--danger); }
+  }
+}
+
+// ── MAIN ──────────────────────────────────────────────────
+.main {
+  flex:       1;
+  display:    flex;
+  flex-direction: column;
+  align-items:    center;
+  padding:    3rem 1.5rem 2rem;
+  gap:        2rem;
+  position:   relative;
+  z-index:    5;
+  max-width:  680px;
+  width:      100%;
+  margin:     0 auto;
+}
+
+// ── STAGE HEADER ──────────────────────────────────────────
+.stage-header {
+  width:           100%;
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+
+  &__tag {
+    font-family:    var(--font-mono);
+    font-size:      0.62rem;
+    letter-spacing: 0.2em;
+    color:          var(--cyan);
+  }
+
+  &__label {
+    font-family:    var(--font-mono);
+    font-size:      0.6rem;
+    letter-spacing: 0.15em;
+    color:          var(--dim);
+  }
+}
+
+// ── CHALLENGE AREA ────────────────────────────────────────
+// This is where TextCaptcha / MathCaptcha / ImageCaptcha render
+.challenge-area {
+  width:      100%;
+  animation:  fadeSlide 0.35s ease both;
+  // each time challenge changes → this re-animates
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+// ── NAVIGATION ROW ────────────────────────────────────────
+.nav-row {
+  width:           100%;
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding-top:     1rem;
+  border-top:      1px solid var(--border-faint);
+}
+
+// ── BACK BUTTON ───────────────────────────────────────────
+.btn-back {
+  font-family:    var(--font-mono);
+  font-size:      0.6rem;
+  font-weight:    600;
+  letter-spacing: 0.2em;
+  color:          var(--muted);
+  background:     transparent;
+  border:         1px solid var(--border-faint);
+  padding:        0.6rem 1.2rem;
+  cursor:         pointer;
+  transition:     all 0.2s;
+
+  &:hover {
+    color:        var(--white);
+    border-color: var(--border-mid);
+  }
+}
+
+// ── HOME BUTTON ───────────────────────────────────────────
+.btn-home {
+  font-family:    var(--font-mono);
+  font-size:      0.6rem;
+  letter-spacing: 0.2em;
+  color:          var(--dim);
+  transition:     color 0.2s;
+
+  &:hover { color: var(--muted); }
+}
+
+// ── STEP DOTS ─────────────────────────────────────────────
+.step-dots {
+  display:     flex;
+  align-items: center;
+  gap:         8px;
+}
+
+.step-dot {
+  width:         8px;
+  height:        8px;
+  border-radius: 50%;
+  background:    var(--dim);
+  transition:    all 0.25s ease;
+
+  // [class.step-dot--active] → currently on this stage
+  &--active {
+    background:  var(--cyan);
+    width:       22px;
+    border-radius: 4px;
+    box-shadow:  0 0 8px var(--cyan);
+  }
+
+  // [class.step-dot--done] → this stage is passed
+  &--done {
+    background: var(--success);
+    box-shadow: 0 0 6px rgba(68,255,136,0.4);
+  }
+}
+
+// ── RESPONSIVE ────────────────────────────────────────────
+@media (max-width: 768px) {
+  .nav {
+    padding: 1.2rem 1.5rem;
+  }
+
+  .main {
+    padding: 2rem 1.25rem 1.5rem;
+  }
+}
