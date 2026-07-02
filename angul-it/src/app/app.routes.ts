@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { Captcha } from './pages/captcha/captcha';
 import { Result } from './pages/result/result';
-import { ErrorMessage } from './shared/components/error-message/error-message';
 import { Home } from './pages/home/home';
 import { captchaGuard } from './core/guards/captcha-guard';
 export const routes: Routes = [

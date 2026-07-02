@@ -10,7 +10,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 // import the state service
-import { ProgressBar } from '../../shared/components/progress-bar/progress-bar';
 import { ImageCaptcha } from '../../challenge/image-captcha/image-captcha';
 import { TextCaptcha } from '../../challenge/text-captcha/text-captcha';
 import { CaptchaState } from '../../core/services/captcha-state';
@@ -24,7 +23,6 @@ import { MathCaptcha } from '../../challenge/math-captcha/math-captcha';
     TextCaptcha,
     MathCaptcha,
     ImageCaptcha,
-    ProgressBar,
   ],
   templateUrl: './captcha.html',
   styleUrls: ['./captcha.scss'],

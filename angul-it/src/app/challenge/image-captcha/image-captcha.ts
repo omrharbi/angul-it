@@ -7,7 +7,7 @@ const SYMBOL_POOL = [
   { symbol: '●', label: 'filled circle'  },
   { symbol: '■', label: 'filled square'  },
   { symbol: '▲', label: 'filled triangle'},
-  { symbol: '★', label: 'star'           },
+  { symbol: '★', label: 'star' },
 ];
 
 @Component({
