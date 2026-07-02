@@ -1,10 +1,8 @@
 <div class="text-captcha">
 
-  <!-- ── TITLE ─────────────────────────────────────────── -->
   <h2 class="title">Type the characters you see</h2>
   <p class="subtitle">Case insensitive · {{ LENGTH }} characters</p>
 
-  <!-- ── SVG CAPTCHA IMAGE ──────────────────────────────── -->
   <div class="svg-wrap" [class.svg-wrap--error]="showError()">
 
     <svg
@@ -16,8 +14,6 @@
     >
       <!-- background -->
       <rect width="100%" height="100%" fill="#0C1520" rx="0"/>
-
-      <!-- noise dots (drawn first, behind characters) -->
       @for (dot of noiseDots(); track $index) {
         <circle
           [attr.cx]="dot.cx"
@@ -27,7 +23,6 @@
         />
       }
 
-      <!-- noise lines (drawn behind characters) -->
       @for (line of noiseLines(); track $index) {
         <line
           [attr.x1]="line.x1"
@@ -40,7 +35,6 @@
         />
       }
 
-      <!-- characters (drawn on top of noise) -->
       @for (ch of svgChars(); track $index) {
         <text
           [attr.x]="ch.x"
@@ -56,14 +50,12 @@
       }
     </svg>
 
-    <!-- refresh button — top right corner of the SVG -->
     <button class="refresh-btn" (click)="generate()" title="Refresh CAPTCHA">
       ↻
     </button>
 
   </div>
 
-  <!-- ── ERROR / SUCCESS FEEDBACK ──────────────────────── -->
   @if (showError()) {
     <div class="feedback feedback--error">
       ✕ Incorrect — a new code has been generated
@@ -76,7 +68,6 @@
     </div>
   }
 
-  <!-- ── INPUT FIELD ────────────────────────────────────── -->
   <div class="input-wrap">
     <input
       class="captcha-input"
@@ -93,13 +84,9 @@
     />
     <span class="input-count">{{ userInput().length }}/{{ LENGTH }}</span>
   </div>
-
-  <!-- attempts hint -->
   @if (attempts() >= 2) {
     <p class="hint">Tip: click ↻ to get an easier code</p>
   }
-
-  <!-- ── VERIFY BUTTON ──────────────────────────────────── -->
   <button
     class="verify-btn"
     [class.verify-btn--ready]="canSubmit()"

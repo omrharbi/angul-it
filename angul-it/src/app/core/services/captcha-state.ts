@@ -1,28 +1,11 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
+import { ChallengeType, SessionState, StageResult } from './interface';
 
-// ── TYPES — defined first so everything below can use them ──
-export type ChallengeType = 'text' | 'math' | 'image';
-
-export interface StageResult {
-  type:   ChallengeType;
-  passed: boolean;
-}
-
-// renamed to SessionState to avoid conflict with the class name CaptchaState
-interface SessionState {
-  currentStage: number;
-  totalStages:  number;
-  score:        number;
-  completed:    boolean;
-  stages:       StageResult[];
-  sessionActive: boolean;  // flag to track if session is currently active
-  timestamp:    number;    // timestamp when session was last saved
-}
 
 const STORAGE_KEY  = 'angul_it_state';
 const TOTAL_STAGES = 3;
-const SESSION_TIMEOUT_MS = 30 * 60 * 1000;  // 30 minutes - if older, treat as stale
+const SESSION_TIMEOUT_MS = 30 * 60 * 1000;
 
 @Injectable({ providedIn: 'root' })
 export class CaptchaState {
@@ -31,19 +14,16 @@ export class CaptchaState {
     this.loadFromStorage();
   }
 
-  // ── SIGNALS ────────────────────────────────────────────────
   currentStage = signal<number>(0);
   score        = signal<number>(0);
   completed    = signal<boolean>(false);
 
-  // signal holding array of StageResult
   stages = signal<StageResult[]>([
     { type: 'text',  passed: false },
     { type: 'math',  passed: false },
     { type: 'image', passed: false },
   ]);
 
-  // ── COMPUTED ────────────────────────────────────────────────
   currentChallenge = computed<ChallengeType>(() =>
     this.stages()[this.currentStage()]?.type ?? 'text'
   );
@@ -60,7 +40,6 @@ export class CaptchaState {
 
   total = TOTAL_STAGES;
 
-  // ── METHODS ─────────────────────────────────────────────────
   passStage(): void {
     const index = this.currentStage();
 
@@ -74,7 +53,7 @@ export class CaptchaState {
 
     if (index + 1 >= TOTAL_STAGES) {
       this.completed.set(true);
-      this.saveToStorage();  // Mark session as inactive after completion
+      this.saveToStorage(); 
       this.router?.navigate(['/result']);
     } else {
       this.currentStage.update(v => v + 1);
@@ -94,7 +73,6 @@ export class CaptchaState {
     this.router?.navigate([navigateTo]);
   }
 
-  // ── CLEAR STATE: Full reset without navigation ───────────────
   clearState(): void {
     this.currentStage.set(0);
     this.score.set(0);
@@ -105,11 +83,9 @@ export class CaptchaState {
     }
   }
 
-  // ── START SESSION: Mark session as active (called when user verifies) ──
   startSession(): void {
     this.clearState();
-    // Don't save to localStorage yet, will save on first pass
-  }
+   }
 
   private shuffleStages(): StageResult[] {
     const types: ChallengeType[] = ['text', 'math', 'image'];
@@ -129,7 +105,7 @@ export class CaptchaState {
       completed:    this.completed(),
       stages:       this.stages(),
       sessionActive: true,
-      timestamp:    Date.now(),  // save current timestamp
+      timestamp:    Date.now(),
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }
@@ -141,12 +117,10 @@ export class CaptchaState {
     try {
       const state: SessionState = JSON.parse(raw);
       
-      // Check if session is stale (older than timeout) or not marked as active
       const now = Date.now();
       const sessionAge = now - (state.timestamp || 0);
       
       if (!state.sessionActive || sessionAge > SESSION_TIMEOUT_MS) {
-        // Session is stale or invalid, clear it
         localStorage.removeItem(STORAGE_KEY);
         return;
       }

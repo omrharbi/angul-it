@@ -57,3 +57,18 @@ export interface NoiseLine {
 export interface NoiseDot {
   cx: number; cy: number; r: number; color: string;
 }
+
+ 
+export interface StageResult {
+  type:   ChallengeType;
+  passed: boolean;
+}
+export interface SessionState {
+  currentStage: number;
+  totalStages:  number;
+  score:        number;
+  completed:    boolean;
+  stages:       StageResult[];
+  sessionActive: boolean;  // flag to track if session is currently active
+  timestamp:    number;    // timestamp when session was last saved
+}

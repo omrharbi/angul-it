@@ -1,58 +1,30 @@
-<!--
-  captcha.component.html
-  ══════════════════════════════════════════
-  WHAT THIS FILE DOES:
-  1. Shows the progress bar at the top
-  2. Shows the correct challenge based on state.currentChallenge()
-  3. Shows BACK / NEXT navigation
-  4. (passed) event from child → calls onStagePassed()
-  ══════════════════════════════════════════
--->
-
 <div class="captcha-shell">
-
-  <!-- ░░ BACKGROUND ░░ -->
   <div class="bg-lines"></div>
-
-  <!-- ░░ NAVBAR ░░ -->
   <nav class="nav">
     <a routerLink="/" class="nav__logo">
       <span class="nav__logo-bracket">[</span>
       ANGUL<span class="nav__logo-accent">·</span>IT
       <span class="nav__logo-bracket">]</span>
     </a>
-
-    <!-- stageLabel() reads from the computed signal in service -->
     <span class="nav__stage">{{ state.stageLabel() }}</span>
 
     <a routerLink="/" class="nav__exit">EXIT ✕</a>
   </nav>
-
-  <!-- ░░ PROGRESS BAR ░░ -->
-  <!--
-    [current] and [total] are @Input() properties in ProgressBarComponent
-    We pass signal values by calling them: state.currentStage()
-  -->
   <app-progress-bar
     [current]="state.currentStage()"
     [total]="state.total"
   />
-
-  <!-- ░░ MAIN CONTENT ░░ -->
   <main class="main">
 
-    <!-- STAGE HEADER -->
     <div class="stage-header">
       <span class="stage-header__tag">
-        // LAYER_0{{ state.currentStage() + 1 }}
+        LAYER_0{{ state.currentStage() + 1 }}
       </span>
       <span class="stage-header__label">
         {{ state.stageLabel() }}
       </span>
     </div>
 
-    <!-- CHALLENGE AREA -->
-    <!-- @if switches between components based on current challenge type -->
     <div class="challenge-area">
 
       @if (state.currentChallenge() === 'text') {
@@ -79,21 +51,15 @@
       }
 
     </div>
-
-    <!-- NAVIGATION: BACK button only (NEXT is inside each challenge) -->
     <div class="nav-row">
-
-      <!-- hasPrev() is a computed signal → false on stage 0 -->
       @if (state.hasPrev()) {
         <button class="btn-back" (click)="onBack()">
           ← BACK
         </button>
       } @else {
-        <!-- empty placeholder keeps layout stable -->
         <span></span>
       }
 
-      <!-- step dots — loop over stages array -->
       <div class="step-dots">
         @for (stage of state.stages(); track $index; let i = $index) {
           <span
@@ -103,12 +69,7 @@
           ></span>
         }
       </div>
-
-      <!-- home link on right side -->
       <a routerLink="/" class="btn-home">HOME</a>
-
     </div>
-
   </main>
-
 </div>

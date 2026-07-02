@@ -31,23 +31,15 @@ import { MathCaptcha } from '../../challenge/math-captcha/math-captcha';
 })
 export class Captcha implements OnInit {
   constructor(public state: CaptchaState) { }
-  //          ↑ public so the HTML template can access state.xxx
-
-  // ── LIFECYCLE: runs once when component mounts ─────────────
   ngOnInit(): void {
-    // If user already completed all stages → send them to result
-    if (this.state.completed()) {
-      // you can optionally redirect here if needed
-      // this.router.navigate(['/result']);
-    }
+    // // If user already completed all stages → send them to result
+    // if (this.state.completed()) {
+    //   // you can optionally redirect here if needed
+    //   // this.router.navigate(['/result']);
+    // }
   }
-
-  // ── CALLED BY CHILD via (passed) event ─────────────────────
-  // When TextCaptcha / MathCaptcha / ImageCaptcha emits "passed"
-  // this method runs in the parent (CaptchaComponent)
   onStagePassed(): void {
     this.state.passStage();
-    // passStage() handles: score++, nextStage, localStorage, routing
   }
 
   // ── CALLED BY BACK BUTTON ──────────────────────────────────

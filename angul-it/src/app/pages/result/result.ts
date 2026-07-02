@@ -25,7 +25,7 @@ export class Result implements OnInit {
   }
 
   get passed(): boolean {
-    return this.state.score() >= 2; // pass if ≥ 2 out of 3
+    return this.state.score() >= 2; 
   }
 
   ngOnInit(): void {
@@ -37,6 +37,6 @@ export class Result implements OnInit {
 
   restart(): void {
     
-    this.state.reset(); // resets signals + localStorage + navigates to /captcha
+    this.state.reset();
   }
 }

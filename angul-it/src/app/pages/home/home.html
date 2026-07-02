@@ -4,102 +4,71 @@
   <div class="bg-lines"></div>
   <div class="bg-pulse"></div>
   <nav class="nav">
-
-    <!-- Logo: plain text binding from .ts title -->
     <div class="nav__logo">
       <span class="nav__logo-bracket">[</span>
       ANGUL<span class="nav__logo-accent">·</span>IT
       <span class="nav__logo-bracket">]</span>
     </div>
-
-    <!-- Links: @for loops over navLinks array from .ts -->
     <div class="nav__links">
       @for (link of navLinks; track link) {
-        <!-- track link → Angular uses this to identify each item -->
         <a href="#" class="nav__link">{{ link }}</a>
       }
     </div>
-
-    <!-- CTA button: routerLink navigates to /captcha route -->
     <a routerLink="/captcha" class="nav__cta">
       ACCESS SYSTEM <span class="nav__cta-arrow">↗</span>
     </a>
 
   </nav>
 
-  <!-- ░░ HERO SECTION ░░ -->
   <main class="hero">
-
-    <!-- LEFT COLUMN: Text content -->
     <div class="hero__left">
 
-      <!-- Status badge -->
       <div class="status-tag">
         <span class="status-tag__bar"></span>
         PROTOCOL ACTIVE / SESSION READY
       </div>
-
-      <!-- Main heading — split lines for visual impact -->
       <h1 class="hero__heading">
         <span class="hero__heading-line hero__heading-line--thin">Are You</span>
         <span class="hero__heading-line hero__heading-line--bold">Actually</span>
         <span class="hero__heading-line hero__heading-line--outline">Human?</span>
       </h1>
 
-      <!-- Description -->
       <p class="hero__desc">
         Three encrypted challenge layers. Zero server dependency.
         Full client-side validation built to separate real users
         from the noise of automated systems.
       </p>
 
-      <!-- Action buttons -->
       <div class="hero__actions">
-
-        <!-- Primary CTA: routerLink → navigate to captcha page -->
         <a routerLink="/captcha" class="btn btn--primary">
           BEGIN PROTOCOL
           <span class="btn__icon">→</span>
         </a>
-
-        <!-- Ghost button -->
         <a routerLink="/result" class="btn btn--ghost">
           VIEW PROCESS
         </a>
 
       </div>
-
-      <!-- Counter showing selected cells: reads computed signal -->
       <div class="counter">
         <span class="counter__label">CELLS SELECTED</span>
-        <!-- selectionCount() → calls computed signal like a function -->
         <span class="counter__value">{{ selectionCount() }}</span>
         <span class="counter__sep">/</span>
         <span class="counter__total">9</span>
       </div>
 
     </div>
-
-    <!-- RIGHT COLUMN: Challenge preview card -->
     <div class="hero__right">
       <div class="card">
-
-        <!-- Card top strip -->
         <div class="card__strip"></div>
-
-        <!-- Card header -->
         <div class="card__header">
           <div class="card__meta">
             <span class="card__tag">LAYER_01</span>
             <span class="card__index">01 / 03</span>
           </div>
-          <!-- Progress bar: fill width is hardcoded for preview -->
           <div class="card__progress">
             <div class="card__progress-bar"></div>
           </div>
         </div>
-
-        <!-- Challenge instruction -->
         <p class="card__instruction">
           Identify all cells containing a
           <strong class="card__keyword">signal emitter</strong>
@@ -133,7 +102,6 @@
 
   </main>
 
-  <!-- ░░ STATS BAR ░░ -->
   <div class="stats">
     @for (stat of stats; track stat.label) {
       <div class="stat">

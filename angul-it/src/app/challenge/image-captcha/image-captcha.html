@@ -2,20 +2,16 @@
 
   <h2 class="title">Select all matching symbols</h2>
 
-  <!-- target symbol instruction -->
   <div class="target-row">
     <span class="target-row__label">Find all</span>
     <span class="target-row__symbol">{{ challenge().target }}</span>
     <span class="target-row__desc">{{ challenge().targetLabel }}</span>
     <button class="refresh-btn" (click)="refresh()">↻</button>
   </div>
-
-  <!-- counter -->
   <p class="counter">
     {{ selectedCount() }} selected · {{ correctCount() }} correct cells exist
   </p>
 
-  <!-- ── FEEDBACK ──────────────────────────────────────── -->
   @if (showError()) {
     <div class="feedback feedback--error">✕ {{ errorMsg() }}</div>
   }
@@ -23,7 +19,6 @@
     <div class="feedback feedback--success">✓ All correct — moving on</div>
   }
 
-  <!-- ── 3×3 GRID ───────────────────────────────────────── -->
   <div class="grid">
     @for (cell of challenge().cells; track $index; let i = $index) {
       <button
@@ -40,7 +35,6 @@
     }
   </div>
 
-  <!-- ── VERIFY BUTTON ─────────────────────────────────── -->
   <button
     class="verify-btn"
     [class.verify-btn--ready]="canVerify()"

@@ -3,7 +3,6 @@
   <h2 class="title">Solve the equation</h2>
   <p class="subtitle">Enter the correct answer below</p>
 
-  <!-- ── EQUATION DISPLAY ───────────────────────────────── -->
   <div class="equation-card">
 
     <div class="equation">
@@ -18,7 +17,6 @@
 
   </div>
 
-  <!-- ── FEEDBACK ───────────────────────────────────────── -->
   @if (showError()) {
     <div class="feedback feedback--error">
       ✕ Wrong answer — try a new equation
@@ -31,7 +29,6 @@
     </div>
   }
 
-  <!-- ── ANSWER INPUT ───────────────────────────────────── -->
   <input
     class="answer-input"
     [class.answer-input--error]="showError()"
@@ -48,7 +45,6 @@
     <p class="hint">Click ↻ for a different equation</p>
   }
 
-  <!-- ── VERIFY BUTTON ──────────────────────────────────── -->
   <button
     class="verify-btn"
     [class.verify-btn--ready]="canSubmit()"
