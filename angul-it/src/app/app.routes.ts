@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+// Client-side routing
 import { Routes } from '@angular/router';
 import { Captcha } from './pages/captcha/captcha';
 import { Result } from './pages/result/result';
@@ -9,13 +9,11 @@ export const routes: Routes = [
   {
     path:      '',
     component: Home,
-    // no guard — anyone can visit home
   },
  
   {
     path:      'captcha',
     component: Captcha,
-    // no guard — anyone can start the challenge
   },
  
   {
@@ -27,8 +25,8 @@ export const routes: Routes = [
   },
  
   {
-    path:       '**',            // any unknown URL
-    redirectTo: '',              // → go to home
+    path:       '**',
+    redirectTo: '',
   },
  
 ];
