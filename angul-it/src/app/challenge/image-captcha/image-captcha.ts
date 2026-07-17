@@ -28,9 +28,6 @@ export class ImageCaptcha implements OnInit {
   ngOnInit(): void {
     this.refresh();
   }
-
-  // ── COMPUTED ────────────────────────────────────────────────
-  // count how many target cells the user selected
   selectedCount = computed(() =>
     this.challenge().cells.filter(c => c.selected).length
   );
@@ -40,7 +37,7 @@ export class ImageCaptcha implements OnInit {
 
   canVerify = computed(() => this.selectedCount() > 0);
   toggleCell(index: number): void {
-    if (this.showSuccess()) return; // lock when done
+    if (this.showSuccess()) return; 
     this.showError.set(false);
 
     this.challenge.update(prev => {
@@ -49,8 +46,6 @@ export class ImageCaptcha implements OnInit {
       return { ...prev, cells };
     });
   }
-
-  // ── VERIFY SELECTION ────────────────────────────────────────
   verify(): void {
     if (!this.canVerify()) return;
 
@@ -77,9 +72,7 @@ export class ImageCaptcha implements OnInit {
     this.errorMsg.set('');
   }
 
-  // ── BUILD CHALLENGE ─────────────────────────────────────────
   private buildChallenge(): Challenge {
-    // pick random target symbol
     const targetEntry = SYMBOL_POOL[Math.floor(Math.random() * SYMBOL_POOL.length)];
 
     // pick 2–4 random positions out of 9 to be correct
@@ -102,7 +95,6 @@ export class ImageCaptcha implements OnInit {
     };
   }
 
-  // ── PICK n UNIQUE POSITIONS from 0..(total-1) ───────────────
   private pickPositions(total: number, n: number): number[] {
     const all = Array.from({ length: total }, (_, i) => i);
     for (let i = all.length - 1; i > 0; i--) {

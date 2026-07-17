@@ -32,7 +32,7 @@
   text-align:  center;
 }
 
-// ── TARGET ROW ─────────────────────────────────────────────
+// ── TARGET ROW ───────────────
 .target-row {
   display:     flex;
   align-items: center;
@@ -164,8 +164,6 @@
 
   &--locked { cursor: default; }
 }
-
-// ── VERIFY BUTTON ──────────────────────────────────────────
 .verify-btn {
   width:          100%;
   padding:        1rem;

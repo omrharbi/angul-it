@@ -40,7 +40,6 @@ export class Captcha implements OnInit {
     this.state.passStage();
   }
 
-  // ── CALLED BY BACK BUTTON ──────────────────────────────────
   onBack(): void {
     this.state.prevStage();
   }
