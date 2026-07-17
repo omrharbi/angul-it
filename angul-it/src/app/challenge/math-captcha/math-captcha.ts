@@ -30,11 +30,9 @@ export class MathCaptcha implements OnInit {
   ngOnInit(): void {
     this.refresh();
   }
-
-  // ── COMPUTED ────────────────────────────────────────────────
+ 
   canSubmit = computed(() => this.userInput().length > 0);
-  
-  // ── GENERATE: random equation ────────────────────────────────
+   
   generate(): Equation {
     const operators: Operator[] = ['+', '-', '×'];
     const op = operators[Math.floor(Math.random() * operators.length)];

@@ -41,13 +41,11 @@ export class TextCaptcha implements OnInit {
   inputUppercase = computed(() => this.userInput().toUpperCase().trim());
 
   canSubmit = computed(() => this.userInput().trim().length === this.LENGTH);
-
-  // ── CONSTRUCTOR: generate on load ───────────────────────────
+ 
   constructor() {
     this.generate();
   }
-
-  // ── GENERATE: builds secret + all SVG data ──────────────────
+ 
   generate(): void {
     this.secret    = this.makeSecret();
     this.userInput.set('');
@@ -56,17 +54,14 @@ export class TextCaptcha implements OnInit {
     this.svgChars.set(this.buildChars());
     this.noiseLines.set(this.buildLines());
     this.noiseDots.set(this.buildDots());
-  }
-
-  // ── VERIFY: check user input vs secret ──────────────────────
+  } 
   verify(): void {
     if (!this.canSubmit()) return;
 
     if (this.inputUppercase() === this.secret) {
       this.showError.set(false);
       this.showSuccess.set(true);
-      // small delay so user sees success state before moving on
-      setTimeout(() => this.passed.emit(), 800);
+       setTimeout(() => this.passed.emit(), 800);
     } else {
       this.attempts.update(v => v + 1);
       this.showError.set(true);
@@ -80,15 +75,12 @@ export class TextCaptcha implements OnInit {
     this.userInput.set(value);
     this.showError.set(false);
   }
-
-  // ── PRIVATE: make a random secret string ────────────────────
+ 
   private makeSecret(): string {
     return Array.from({ length: this.LENGTH }, () =>
       this.CHARS[Math.floor(Math.random() * this.CHARS.length)]
     ).join('');
-  }
-
-  // ── PRIVATE: build SVG character objects ────────────────────
+  } 
   private buildChars(): SvgChar[] {
     const spacing = this.SVG_W / (this.LENGTH + 1);
     return this.secret.split('').map((char, i) => ({
@@ -100,8 +92,7 @@ export class TextCaptcha implements OnInit {
       color:    this.COLORS[Math.floor(Math.random() * this.COLORS.length)],
     }));
   }
-
-  // ── PRIVATE: build noise lines ──────────────────────────────
+ 
   private buildLines(): NoiseLine[] {
     return Array.from({ length: 5 }, () => ({
       x1: this.rand(0, this.SVG_W),
@@ -111,8 +102,7 @@ export class TextCaptcha implements OnInit {
       color: Math.random() > 0.5 ? '#1E2A3A' : '#0A3040',
     }));
   }
-
-  // ── PRIVATE: build noise dots ───────────────────────────────
+ 
   private buildDots(): NoiseDot[] {
     return Array.from({ length: 14 }, () => ({
       cx:    this.rand(0, this.SVG_W),
@@ -121,8 +111,7 @@ export class TextCaptcha implements OnInit {
       color: Math.random() > 0.5 ? '#1C3344' : '#0D2233',
     }));
   }
-
-  // ── PRIVATE: random number between min and max ───────────────
+ 
   private rand(min: number, max: number): number {
     return Math.random() * (max - min) + min;
   }
