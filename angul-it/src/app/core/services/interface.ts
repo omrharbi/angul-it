@@ -30,8 +30,8 @@ export interface GridCell {
 }
 
 export interface Challenge {
-  target:      string; // the symbol user must find
-  targetLabel: string; // human readable label
+  target:      string;
+  targetLabel: string; 
   cells:       GridCell[];
 }
 
@@ -69,6 +69,6 @@ export interface SessionState {
   score:        number;
   completed:    boolean;
   stages:       StageResult[];
-  sessionActive: boolean;  // flag to track if session is currently active
-  timestamp:    number;    // timestamp when session was last saved
+  sessionActive: boolean; 
+  timestamp:    number;  
 }

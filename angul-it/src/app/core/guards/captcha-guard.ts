@@ -1,9 +1,3 @@
-// ─────────────────────────────────────────────────────────────
-//  captcha.guard.ts
-//  Protects the /result route
-//  If user hasn't completed all stages → redirect to /captcha
-// ─────────────────────────────────────────────────────────────
-
 import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
 import { Router } from '@angular/router';
