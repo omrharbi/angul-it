@@ -29,7 +29,6 @@ export class Result implements OnInit {
   }
 
   ngOnInit(): void {
-    // guard already handles redirect if not completed
   }
   goHome(): void {
     this.state.reset('/');

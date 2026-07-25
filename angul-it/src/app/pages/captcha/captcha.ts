@@ -29,13 +29,7 @@ import { MathCaptcha } from '../../challenge/math-captcha/math-captcha';
 })
 export class Captcha implements OnInit {
   constructor(public state: CaptchaState) { }
-  ngOnInit(): void {
-    // // If user already completed all stages → send them to result
-    // if (this.state.completed()) {
-    //   // you can optionally redirect here if needed
-    //   // this.router.navigate(['/result']);
-    // }
-  }
+  ngOnInit(): void {  }
   onStagePassed(): void {
     this.state.passStage();
   }

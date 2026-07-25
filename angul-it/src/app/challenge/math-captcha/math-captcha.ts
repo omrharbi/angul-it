@@ -67,10 +67,6 @@ export class MathCaptcha implements OnInit {
   }
 
   onInputChange(value: string): void {
-    // only allow digits and optional minus sign
-    // console.log(value,value.replace(/[^0-9-]/g, ''));
-      console.log(this.userInput() ,"length");
-      
     this.userInput.set(value);
     this.showError.set(false);
   }
