@@ -100,22 +100,3 @@ ng serve
 # Open in browser
 http://localhost:4200
 ```
-
----
-
-## 📖 Learning Objectives Covered
-
-- Angular standalone components
-- Signals and computed values
-- `@Input()` / `@Output()` between components
-- Reactive Forms and input validation
-- Route guards with `CanActivateFn`
-- State persistence with localStorage
-- Pure SVG generation from TypeScript
-- Responsive SCSS design system
-
----
-
-## 👤 Author
-
-Built as a learning project to master Angular 17 fundamentals through a real-world CAPTCHA implementation.
