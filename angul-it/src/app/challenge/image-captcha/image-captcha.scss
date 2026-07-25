@@ -153,8 +153,6 @@
     background: rgba(0,229,255,0.06);
     .cell__symbol { color: var(--white); }
   }
-
-  // [class.cell--selected] added when cell.selected === true
   &--selected {
     background: rgba(0,229,255,0.10);
     outline:    1px solid var(--cyan-border);

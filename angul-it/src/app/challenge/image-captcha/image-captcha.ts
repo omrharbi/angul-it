@@ -64,7 +64,6 @@ export class ImageCaptcha implements OnInit {
     }
   }
 
-  // ── REFRESH ─────────────────────────────────────────────────
   refresh(): void {
     this.challenge.set(this.buildChallenge());
     this.showError.set(false);
@@ -74,8 +73,6 @@ export class ImageCaptcha implements OnInit {
 
   private buildChallenge(): Challenge {
     const targetEntry = SYMBOL_POOL[Math.floor(Math.random() * SYMBOL_POOL.length)];
-
-    // pick 2–4 random positions out of 9 to be correct
     const positions   = this.pickPositions(9, this.randInt(2, 4));
     const otherPool   = SYMBOL_POOL.filter(s => s.symbol !== targetEntry.symbol);
 

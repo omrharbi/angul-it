@@ -24,9 +24,9 @@ export interface CaptchaStateData {
 }
 
 export interface GridCell {
-  symbol:    string;  // the symbol shown
-  isTarget:  boolean; // is this a correct cell?
-  selected:  boolean; // has the user selected it?
+  symbol:    string; 
+  isTarget:  boolean;
+  selected:  boolean;
 }
 
 export interface Challenge {
