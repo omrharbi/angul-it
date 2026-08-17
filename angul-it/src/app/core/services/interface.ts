@@ -34,9 +34,7 @@ export interface Challenge {
   targetLabel: string; 
   cells:       GridCell[];
 }
-
-
-// ── SVG character shape ─────────────────────────────────────
+ 
 export interface SvgChar {
   char:     string;
   x:        number;
@@ -44,16 +42,13 @@ export interface SvgChar {
   rotation: number;
   fontSize: number;
   color:    string;
-}
-
-// ── SVG noise line ──────────────────────────────────────────
+} 
 export interface NoiseLine {
   x1: number; y1: number;
   x2: number; y2: number;
   color: string;
 }
-
-// ── SVG noise dot ───────────────────────────────────────────
+ 
 export interface NoiseDot {
   cx: number; cy: number; r: number; color: string;
 }
@@ -71,4 +66,11 @@ export interface SessionState {
   stages:       StageResult[];
   sessionActive: boolean; 
   timestamp:    number;  
+}
+export type Operator = '+' | '-' | '×';
+export interface Equation {
+  a:        number;
+  b:        number;
+  operator: Operator;
+  answer:   number;
 }

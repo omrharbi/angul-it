@@ -1,15 +1,11 @@
 import { Component, Output, EventEmitter, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Equation, Operator } from '../../core/services/interface';
 
-type Operator = '+' | '-' | '×';
 
-interface Equation {
-  a:        number;
-  b:        number;
-  operator: Operator;
-  answer:   number;
-}
+
+
 
 @Component({
   selector:    'app-math-captcha',
@@ -58,8 +54,6 @@ export class MathCaptcha implements OnInit {
   }
 
   refresh(): void {
-    console.log(this.userInput,"this.generate()");
-    
     this.equation.set(this.generate());
     this.userInput.set('');
     this.showError.set(false);

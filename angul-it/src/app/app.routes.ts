@@ -20,8 +20,6 @@ export const routes: Routes = [
     path:         'result',
     component:    Result,
     canActivate:  [captchaGuard],
-    // captchaGuard runs BEFORE ResultComponent loads
-    // if completed === false → redirects to /captcha automatically
   },
  
   {
