@@ -21,7 +21,7 @@ export const routes: Routes = [
     component:    Result,
     canActivate:  [captchaGuard],
   },
- 
+  
   {
     path:       '**',
     redirectTo: '',

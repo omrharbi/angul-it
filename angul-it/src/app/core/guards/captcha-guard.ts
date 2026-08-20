@@ -4,13 +4,10 @@ import { Router } from '@angular/router';
 export const captchaGuard: CanActivateFn = () => {
 
   const router = inject(Router);
-  
-  // SSR-safe: localStorage doesn't exist on server
   if (typeof localStorage === 'undefined') {
-    return true; // Allow on server-side, client will check
+    return true;
   }
   
-  // read state from localStorage directly
   const raw = localStorage.getItem('angul_it_state');
 
   if (!raw) {
