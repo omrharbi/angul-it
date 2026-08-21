@@ -1,8 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChallengeType, SessionState, StageResult } from './interface';
-
-
 const STORAGE_KEY  = 'angul_it_state';
 const TOTAL_STAGES = 3;
 const SESSION_TIMEOUT_MS = 30 * 60 * 1000;
@@ -41,16 +39,22 @@ export class CaptchaState {
   total = TOTAL_STAGES;
 
   passStage(): void {
-    const index = this.currentStage();
+    if (this.completed()) {
+      this.router?.navigate(['/result']);
+      return;
+    }
 
+    const index = this.currentStage();
+    const alreadyPassed = this.stages()[index]?.passed ?? false;
     this.stages.update(prev => {
       const next = [...prev];
       next[index] = { ...next[index], passed: true };
       return next;
     });
 
-    this.score.update(v => v + 1);
-
+    if (!alreadyPassed) {
+      this.score.update(v => v + 1);
+    }
     if (index + 1 >= TOTAL_STAGES) {
       this.completed.set(true);
       this.saveToStorage(); 
@@ -89,6 +93,14 @@ export class CaptchaState {
   }
 
   startSession(): void {
+    if (this.completed()) {
+      this.currentStage.set(0);
+      this.score.set(0);
+      this.completed.set(false);
+      this.stages.set(this.shuffleStages());
+      this.saveToStorage();
+      return;
+    }
     if (!this.hasActiveSession()) {
       this.clearState();
     }
@@ -127,7 +139,7 @@ export class CaptchaState {
       const now = Date.now();
       const sessionAge = now - (state.timestamp || 0);
       
-      if (!state.sessionActive || sessionAge > SESSION_TIMEOUT_MS) {
+      if (!state.sessionActive || (!state.completed && sessionAge > SESSION_TIMEOUT_MS)) {
         localStorage.removeItem(STORAGE_KEY);
         return;
       }

@@ -22,8 +22,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Captcha implements OnInit {
   constructor(public state: CaptchaState) { }
-  ngOnInit(): void {  }
+  ngOnInit(): void {
+    this.state.startSession();
+  }
   onStagePassed(): void {
+    
     this.state.passStage();
   }
 
