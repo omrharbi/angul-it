@@ -1,19 +1,12 @@
-// ─────────────────────────────────────────────────────────────
-//  captcha.component.ts
-//  The STAGE MANAGER — does not show challenges itself.
-//  Controls which challenge is shown + handles navigation.
-// ─────────────────────────────────────────────────────────────
-
-import { Component, OnInit } from '@angular/core';
-//                  ↑ OnInit = lifecycle hook interface
 
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-// import the state service
 import { ImageCaptcha } from '../../challenge/image-captcha/image-captcha';
 import { TextCaptcha } from '../../challenge/text-captcha/text-captcha';
 import { CaptchaState } from '../../core/services/captcha-state';
 import { MathCaptcha } from '../../challenge/math-captcha/math-captcha';
+import { Component, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-captcha',
   standalone: true,

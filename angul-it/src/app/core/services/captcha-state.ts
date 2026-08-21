@@ -84,9 +84,15 @@ export class CaptchaState {
     }
   }
 
+  hasActiveSession(): boolean {
+    return !this.completed() && this.currentStage() > 0;
+  }
+
   startSession(): void {
-    this.clearState();
-   }
+    if (!this.hasActiveSession()) {
+      this.clearState();
+    }
+  }
 
   private shuffleStages(): StageResult[] {
     const types: ChallengeType[] = ['text', 'math', 'image'];

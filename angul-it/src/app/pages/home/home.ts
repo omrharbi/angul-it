@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CaptchaState } from '../../core/services/captcha-state';
 
 @Component({
-  selector:    'app-home',              
+  selector:    'app-home',
   standalone:  true,
   imports:     [RouterLink, CommonModule],
   templateUrl: './home.html',
@@ -15,7 +15,6 @@ export class Home implements OnInit {
   constructor(private router: Router, private captchaState: CaptchaState) {}
 
   ngOnInit(): void {
-    this.captchaState.clearState();
   }
 
   navLinks = ['SYSTEM', 'PROCESS', 'PROTOCOL'];
@@ -36,7 +35,7 @@ export class Home implements OnInit {
     this.selectedCells.update(current => {
       const next = new Set(current);
       if (next.has(index)) {
-        next.delete(index); 
+        next.delete(index);
       } else {
         next.add(index);
       }
@@ -48,7 +47,8 @@ export class Home implements OnInit {
   }
 
   verifySelection(event?: Event): void {
-    if (event) event.preventDefault();
-    this.captchaState.reset();
+    if (event) event.preventDefault(); 
+    this.captchaState.startSession();
+    this.router.navigate(['/captcha']);
   }
 }
