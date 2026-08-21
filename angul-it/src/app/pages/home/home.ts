@@ -51,4 +51,8 @@ export class Home implements OnInit {
     this.captchaState.startSession();
     this.router.navigate(['/captcha']);
   }
+
+  resetChallenge(): void {
+    this.captchaState.reset('/captcha');
+  }
 }

@@ -44,9 +44,9 @@
           BEGIN PROTOCOL
           <span class="btn__icon">→</span>
         </a>
-        <!-- <a routerLink="/result" class="btn btn--ghost">
-          VIEW PROCESS
-        </a> -->
+        <button type="button" class="btn btn--ghost" (click)="resetChallenge()">
+          RESET CHALLENGE
+        </button>
 
       </div>
       <div class="counter">
@@ -91,10 +91,10 @@
         <button
           class="verify-btn"
           [class.verify-btn--ready]="isVerifyReady()"
-          
-        > 
-            
-           <a routerLink="" (click)="verifySelection()"> Go To Captcha → </a>
+          type="button"
+          (click)="verifySelection($event)"
+        >
+          Go To Captcha →
         </button>
 
       </div>

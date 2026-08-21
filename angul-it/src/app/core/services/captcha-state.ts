@@ -68,7 +68,6 @@ export class CaptchaState {
   prevStage(): void {
     if (this.hasPrev()) {
       this.currentStage.update(v => v - 1);
-      this.score.update(v => v - 1);
       this.saveToStorage();
     }
   }

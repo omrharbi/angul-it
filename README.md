@@ -20,83 +20,26 @@ A distorted text code is rendered using **pure SVG** (no canvas, no external lib
 ### Stage 2 — Math Challenge
 A random arithmetic equation is generated (`+`, `-`, `×`). The user solves it and types the answer. Difficulty scales randomly per session.
 
-### Stage 3 — Image Selection
-A 3×3 grid of symbols is displayed. The user must identify and select **all cells matching the target symbol**. The grid is randomized with 2–4 correct cells per challenge.
+# ANGUL·IT
 
----
+Multi-stage CAPTCHA built with Angular. Users complete three randomized challenges:
 
-## ⚙️ How It Works
+1. Text recognition
+2. Math equation
+3. Image symbol selection
 
-```
-Home Page
-  ↓ user clicks BEGIN CHALLENGE
-Captcha Page
-  ↓ Stage 1 → Stage 2 → Stage 3
-  ↓ each stage validated before moving forward
-Result Page
-  ↓ score displayed + challenge breakdown
-  ↓ user can restart or go home
-```
+Progress is saved in `localStorage`, so refreshes do not lose the current session. The `/result` route is protected until all stages are complete.
 
-Progress is tracked using a **service + localStorage** combination. If the user refreshes mid-challenge, they resume exactly where they left off. The result page is **route-guarded** — direct access without completing the challenge redirects back to the captcha page.
+## Tech Stack
 
----
+Angular, TypeScript, Signals, Angular Router, SCSS, and pure SVG.
 
-## 🛠️ Tech Stack
-
-| Tool | Usage |
-|---|---|
-| Angular 17 | Framework |
-| TypeScript | Language |
-| Angular Signals | Reactive state management |
-| Angular Router | Navigation + route guards |
-| localStorage | Progress persistence |
-| Pure SVG | Text CAPTCHA rendering |
-| SCSS | Styling |
-
-> No external CAPTCHA libraries used. Everything is built from scratch.
-
----
-
-## 📁 Project Structure
-
-```
-src/app/
-├── core/
-│   ├── services/
-│   │   └── captcha-state.ts     ← shared state + localStorage
-│   └── guards/
-│       └── captcha-guard.ts     ← protects /result route
-├── pages/
-│   ├── home/                    ← landing page
-│   ├── captcha/                 ← stage manager
-│   └── result/                  ← score summary
-└── challenge/
-    ├── text-captcha/            ← SVG text challenge
-    ├── math-captcha/            ← equation challenge
-    └── image-captcha/           ← symbol grid challenge
-```
-
----
-
-## 🔒 Security Features
-
-- Route guard blocks direct access to `/result`
-- Session resets on returning to home page
-- Challenge order randomized per session
-- Wrong answers regenerate a new challenge automatically
-
----
-
-## 🏁 Getting Started
+## Getting Started
 
 ```bash
-# Install dependencies
 npm install
-
-# Run development server
 ng serve
-
-# Open in browser
-http://localhost:4200
 ```
+
+Open http://localhost:4200.
+## 🛠️ Tech Stack

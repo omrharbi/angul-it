@@ -302,6 +302,7 @@ a      { text-decoration: none; }
     color: var(--text-muted);
     border: 1px solid var(--border-mid);
     padding: 1rem 1.5rem;
+    cursor: pointer;
 
     &:hover {
       color: var(--text-bright);
